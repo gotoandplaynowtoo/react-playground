@@ -2,7 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Clock = (props) => (
-    <div>{props.dateString}</div>
+    <div style={{
+        color: '#3498db',
+        fontFamily: 'monospace'
+        fontSize: 24,
+        fontWeight: 'bold',
+    }}>
+        {props.dateString}
+    </div>
 );
 
 Clock.propTypes = {
