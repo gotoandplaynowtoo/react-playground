@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Clock = (props) => (
     <div style={{
         color: '#3498db',
-        fontFamily: 'monospace'
+        fontFamily: 'monospace',
         fontSize: 24,
         fontWeight: 'bold',
     }}>
