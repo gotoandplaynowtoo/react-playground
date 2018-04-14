@@ -31,6 +31,10 @@ class App extends Component {
     this.onDismiss = this.onDismiss.bind(this);
   }
 
+  /**
+   * 
+   * @param {String} searchTerm 
+   */
   needToSearchTopStories(searchTerm) {
     return !this.state.results[searchTerm];
   }
