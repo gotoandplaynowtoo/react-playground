@@ -19,6 +19,8 @@ class FilterableList extends Component {
     searchKey: ''
   };
 
+  _isMounted = false;
+
   // Handlers
   handleFormChange = (e)  => {
     this.setState({
@@ -78,6 +80,8 @@ class FilterableList extends Component {
       ...newResult.hits,
     ];
 
+    if(!this._isMounted) return;
+
     this.setState({
       searchKey: key,
       results: {
@@ -127,16 +131,22 @@ class FilterableList extends Component {
   };
 
   // Lifecyle
-  componentDidMount() {
+  componentDidMount = () => {
 
     const {
       searchTerm
     } = this.state;
 
+    this._isMounted = true;
+
     this.fetchData(searchTerm)
       .then(data => {
         this.cacheResult(data, searchTerm);
       }) ;
+  }
+
+  componentWillUnmount = () => {
+    this._isMounted = false;
   }
 
   render = () => {
