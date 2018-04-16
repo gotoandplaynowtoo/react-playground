@@ -28,15 +28,13 @@ class App extends Component {
 
   render() {
     return (
-      <div style={
-        {
+      <div style={{
           alignItems: 'center',
           display: 'flex',
           height: '100vh',
           justifyContent: 'center',
           width: '100vw'
-        }
-      }>
+      }}>
         <Clock dateString={this.state.dateString} />
       </div>
     );
