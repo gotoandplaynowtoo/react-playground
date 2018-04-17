@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "height": "100vh",
+      "justifyContent": "center",
+      "width": "100vw",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "color": "#3498db",
+        "fontFamily": "monospace",
+        "fontSize": 24,
+        "fontWeight": "bold",
+      }
+    }
+  >
+    05:27:50
+  </div>
+</div>
+`;

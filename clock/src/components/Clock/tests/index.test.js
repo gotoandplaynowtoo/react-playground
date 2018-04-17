@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
-import App from './App';
+import Clock from 'components/Clock';
 
-it('renders without crashing', () => {
+it('render without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+  ReactDOM.render(<Clock/>, div);
   ReactDOM.unmountComponentAtNode(div);
 });
 
-it('renders correctly', () => {
-  const tree = renderer.create(<App/>).toJSON();
+it('render correctly', () => {
+  const tree = renderer.create(<Clock/>).toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render correctly 1`] = `
+<div
+  style={
+    Object {
+      "color": "#3498db",
+      "fontFamily": "monospace",
+      "fontSize": 24,
+      "fontWeight": "bold",
+    }
+  }
+>
+  Clock default string
+</div>
+`;
