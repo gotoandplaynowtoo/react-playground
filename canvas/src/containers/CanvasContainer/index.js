@@ -15,6 +15,7 @@ class CanvasContainer extends Component {
   enterFrame = () => {
     this.animId = requestAnimationFrame(this.enterFrame);
     const ctx = this.ctx;
+    if(!ctx) return null;
     const x = Math.random() * this.w;
     const y = Math.random() * this.h;
     const size = Math.random() * 10;
@@ -22,6 +23,7 @@ class CanvasContainer extends Component {
   }
 
   componentDidMount() {
+    if(!this.stage) return;
     this.stage.width = this.w = window.innerWidth;
     this.stage.height = this.h = window.innerHeight;
     this.ctx = this.stage.getContext('2d');
