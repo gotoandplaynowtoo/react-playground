@@ -6,7 +6,7 @@ class Clock extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      time: new Date()
+      time: ''
     };
     this.timerId = null;
   }
@@ -22,12 +22,12 @@ class Clock extends Component {
   }
 
   render() {
-    return <Display>{this.state.time.toLocaleTimeString()}</Display>
+    return <Display>{this.state.time}</Display>
   }
 
   tick() {
     this.setState({
-      time: new Date()
+      time: (new Date()).toLocaleTimeString()
     });
   }
 

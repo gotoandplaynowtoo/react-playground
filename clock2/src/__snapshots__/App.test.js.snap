@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <div
+    className="sc-bwzfXH frPOGe"
+    style={
+      Object {
+        "height": "100vh",
+        "width": "100vw",
+      }
+    }
+  >
+    <div
+      className="sc-bdVaJa gvVfeb"
+    >
+      
+    </div>
+  </div>
+</div>
+`;
