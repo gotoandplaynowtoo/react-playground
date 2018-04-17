@@ -44,14 +44,23 @@ describe('Search', () => {
 });
 
 describe('Button', () => {
+
+  const onClick = () => {
+    console.log('onClick');
+  }; 
+  
+  const props = {
+    onClick: onClick
+  };
+
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<Button>Give Me More</Button>, div);
+    ReactDOM.render(<Button {...props}>Give Me More</Button>, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 
   it('has a valid snapshot', () => {
-    const component = renderer.create(<Button>Give Me More</Button>);
+    const component = renderer.create(<Button {...props}>Give Me More</Button>);
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -59,10 +68,15 @@ describe('Button', () => {
 
 describe('Table', () => {
 
+  const onDismiss = () => {
+    console.log('onDismiss');
+  };  
+
   const props = {
+    onDismiss: onDismiss,
     list: [
-      {title: 1, author: 1, num_comments: 1, points: 2, objectID: 'y'},
-      {title: 2, author: 2, num_comments: 1, points: 2, objectID: 'z'},
+      {title: 1, author: '1', num_comments: 1, points: 2, objectID: 'y'},
+      {title: 2, author: '2', num_comments: 1, points: 2, objectID: 'z'},
     ]
   };
 

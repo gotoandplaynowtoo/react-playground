@@ -171,6 +171,11 @@ const Search = ({
     <button type='submit'>{children}</button>
   </form>;
 
+Search.propTypes = {
+  value: PropTypes.any,
+  onChange: PropTypes.func
+};
+
 const Table = ({
   list,
   onDismiss
@@ -209,7 +214,7 @@ Table.propTypes = {
     num_comments: PropTypes.number,
     points: PropTypes.number
   })).isRequired,
-  onDismis: PropTypes.func.isRequired
+  onDismiss: PropTypes.func.isRequired
 };
 
 const Button = ({
