@@ -140,7 +140,7 @@ class App extends Component {
         </div>
         { error 
             ? <div className='interactions'>
-                <p>Something went wrong</p>
+                <p>Something went wrong.</p>
               </div>
             : <Table
                 list={list}
@@ -214,3 +214,9 @@ const Button = ({
   </button>;
 
 export default App;
+
+export {
+  Button,
+  Search,
+  Table
+};
