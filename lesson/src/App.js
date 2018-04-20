@@ -22,6 +22,27 @@ const SORTS = {
   POINTS: list => sortBy(list, 'points').reverse()
 };
 
+const updateSearchTopStoriesState = (hits, page) => (prevState) => {
+  const {searchKey, results} = prevState;
+
+  const oldHits = results && results[searchKey] 
+    ? results[searchKey].hits
+    : [];
+    
+  const updatedHits = [
+    ...oldHits,
+    ...hits
+  ];
+  
+  return {
+    results: {
+      ...results,
+      [searchKey]: {hits: updatedHits, page}
+    },
+    isLoading: false
+  };
+};
+
 class App extends Component {
 
   _isMounted = false;
@@ -35,22 +56,14 @@ class App extends Component {
       searchTerm: DEFAULT_QUERY,
       error: null,
       isLoading: false,
-      sortKey: 'NONE',
-      isSortReverse: false
     };
 
-    this.needToSearchTopStories = this.needToSearchTopStories.bind(this);
     this.setSearchTopStories = this.setSearchTopStories.bind(this);
     this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
-    this.onSearchChange = this.onSearchChange.bind(this);
-    this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
-    this.onSort = this.onSort.bind(this);
-  }
-
-  onSort(sortKey) {
-    const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
-    this.setState({sortKey, isSortReverse});
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
+    this.needToSearchTopStories = this.needToSearchTopStories.bind(this);
   }
 
   needToSearchTopStories(searchTerm) {
@@ -74,26 +87,8 @@ class App extends Component {
   }
 
   setSearchTopStories(result) {
-    
     const {hits, page} = result;
-    const {searchKey, results} = this.state;
-
-    const oldHits = results && results[searchKey] 
-      ? results[searchKey].hits
-      : [];
-      
-    const updatedHits = [
-      ...oldHits,
-      ...hits
-    ];
-    
-    this.setState({
-      results: {
-        ...results,
-        [searchKey]: {hits: updatedHits, page}
-      },
-      isLoading: false
-    });
+    this.setState(updateSearchTopStoriesState(hits, page));
   }
 
   componentWillUnmount() {
@@ -135,9 +130,7 @@ class App extends Component {
       results,
       searchKey,
       error,
-      isLoading,
-      sortKey,
-      isSortReverse
+      isLoading
     } = this.state;
 
     const page = (
@@ -169,9 +162,6 @@ class App extends Component {
               </div>
             : <Table
                 list={list}
-                sortKey={sortKey}
-                isSortReverse={isSortReverse}
-                onSort={this.onSort}
                 onDismiss={this.onDismiss}
               />
         }
@@ -186,56 +176,6 @@ class App extends Component {
     );
   }
 }
-
-/*
-const Search = ({
-  value,
-  onChange,
-  onSubmit,
-  children
-}) => 
-  <form onSubmit={onSubmit}>
-    <input 
-      type="text" 
-      value={value}
-      onChange={onChange}
-    />
-    <button type='submit'>{children}</button>
-  </form>;
-*/
-
-
-/*
-class Search extends Component {
-
-  componentDidMount() {
-    if(this.input) {
-      this.input.focus();
-    }
-  }
-
-  render() {
-    const {
-      value,
-      onChange,
-      onSubmit,
-      children
-    } = this.props;
-
-    return (
-      <form onSubmit={onSubmit}>
-        <input 
-          type="text" 
-          value={value}
-          onChange={onChange}
-          ref={(node) => {this.input = node;}}
-        />
-        <button type='submit'>{children}</button>
-      </form>      
-    );
-  }
-}
-*/
 
 const Search = ({
   value,
@@ -262,48 +202,70 @@ Search.propTypes = {
   onChange: PropTypes.func
 };
 
-const Table = ({
-  list,
-  sortKey,
-  isSortReverse,
-  onSort,
-  onDismiss
-}) => {
 
-  const largeColumn = {width: '40%'};
-  const midColumn = {width: '30%'};
-  const smallColumn = {width: '10%'};
-  const sortedList = SORTS[sortKey](list);
-  const reverseSortedList = isSortReverse
-    ? sortedList.reverse()
-    : sortedList;
+class Table extends Component {
 
-  return <div className='table'>
-    <div className='table-header'>
-      <span style={{width: '40%'}}><Sort activeSortKey={sortKey} sortKey={'TITLE'} onSort={onSort}>Title</Sort></span>
-      <span style={{width: '30%'}}><Sort activeSortKey={sortKey} sortKey={'AUTHOR'} onSort={onSort}>Author</Sort></span>
-      <span style={{width: '10%'}}><Sort activeSortKey={sortKey} sortKey={'COMMENTS'} onSort={onSort}>Comments</Sort></span>
-      <span style={{width: '10%'}}><Sort activeSortKey={sortKey} sortKey={'POINTS'} onSort={onSort}>Points</Sort></span>
-      <span style={{width: '10%'}}>Archive</span>
-    </div>
-    {reverseSortedList.map(item => 
-      <div key={item.objectID} className='table-row'>
-        <span style={largeColumn}><a href={item.url}>{item.title}</a></span>
-        <span style={midColumn}>{item.author}</span>
-        <span style={smallColumn}>{item.num_comments}</span>
-        <span style={smallColumn}>{item.points}</span>
-        <span>
-          <Button 
-            onClick={ () => onDismiss(item.objectID) }
-            className='button-inline'
-          >
-            Dismiss
-          </Button>
-        </span>
-      </div>
-    )}
-  </div>;
+  constructor(props) {
+    super(props);
+    this.state = {
+      sortKey: 'NONE',
+      isSortReverse: false
+    };
+    this.onSort = this.onSort.bind(this);
+  }
+
+  onSort(sortKey) {
+    const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
+    this.setState({sortKey, isSortReverse});
+  }  
+
+  render() {
+
+    const {
+      list,
+      onDismiss
+    } = this.props;
+
+    const {
+      sortKey,
+      isSortReverse
+    } = this.state;
+
+    const sortedList = SORTS[sortKey](list);
+    const reverseSortedList = isSortReverse
+      ? sortedList.reverse()
+      : sortedList;    
+
+    const largeColumn = {width: '40%'};
+    const midColumn = {width: '30%'};
+    const smallColumn = {width: '10%'};
   
+    return <div className='table'>
+      <div className='table-header'>
+        <span style={{width: '40%'}}><Sort activeSortKey={sortKey} sortKey={'TITLE'} onSort={this.onSort}>Title</Sort></span>
+        <span style={{width: '30%'}}><Sort activeSortKey={sortKey} sortKey={'AUTHOR'} onSort={this.onSort}>Author</Sort></span>
+        <span style={{width: '10%'}}><Sort activeSortKey={sortKey} sortKey={'COMMENTS'} onSort={this.onSort}>Comments</Sort></span>
+        <span style={{width: '10%'}}><Sort activeSortKey={sortKey} sortKey={'POINTS'} onSort={this.onSort}>Points</Sort></span>
+        <span style={{width: '10%'}}>Archive</span>
+      </div>
+      {reverseSortedList.map(item => 
+        <div key={item.objectID} className='table-row'>
+          <span style={largeColumn}><a href={item.url}>{item.title}</a></span>
+          <span style={midColumn}>{item.author}</span>
+          <span style={smallColumn}>{item.num_comments}</span>
+          <span style={smallColumn}>{item.points}</span>
+          <span>
+            <Button 
+              onClick={ () => onDismiss(item.objectID) }
+              className='button-inline'
+            >
+              Dismiss
+            </Button>
+          </span>
+        </div>
+      )}
+    </div>;
+  }
 }
 
 Table.propTypes = {
@@ -349,18 +311,11 @@ const withLoading = (Component) => ({isLoading, ...rest}) =>
 const ButtonWithLoading = withLoading(Button);
 
 const Sort = ({sortKey, activeSortKey, onSort, children}) => {
-  /*
-  const sortClass = ['button-inline'];
-  if(sortKey === activeSortKey) {
-    sortClass.push('button-active');
-  }
-  */
   const sortClass = classNames(
     'button-inline',
     {'button-active': sortKey === activeSortKey}
   );
   return <Button 
-    // className={sortClass.join(' ')}
     className={sortClass}
     onClick={() => onSort(sortKey) }>
     {children}
