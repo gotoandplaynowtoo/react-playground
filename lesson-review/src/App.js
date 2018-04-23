@@ -5,6 +5,9 @@ import UnidirectionalApp from './UnidirectionalApp';
 import FormApp from './FormApp';
 import FormApp2 from './FormApp2';
 import FilterListApp from './FilterListApp';
+import FetchApp from './FetchApp';
+import ErrorApp from './ErrorApp';
+import ErrorBoundary from './ErrorBoundary';
 
 class App extends Component {
   render() {
@@ -16,6 +19,10 @@ class App extends Component {
         <FormApp/>
         <FormApp2/>
         <FilterListApp/>
+        <FetchApp/>
+        <ErrorBoundary>
+          <ErrorApp/>
+        </ErrorBoundary>
       </div>
     );
   }
