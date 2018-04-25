@@ -6,8 +6,10 @@ import FormApp from './FormApp';
 import FormApp2 from './FormApp2';
 import FilterListApp from './FilterListApp';
 import FetchApp from './FetchApp';
+import FetchApp2 from './FetchApp2';
 import ErrorApp from './ErrorApp';
 import ErrorBoundary from './ErrorBoundary';
+import DebounceApp from './DebounceApp';
 
 class App extends Component {
   render() {
@@ -23,6 +25,8 @@ class App extends Component {
         <ErrorBoundary>
           <ErrorApp/>
         </ErrorBoundary>
+        <FetchApp2/>
+        <DebounceApp/>
       </div>
     );
   }
