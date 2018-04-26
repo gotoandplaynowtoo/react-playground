@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import ConditionalRendererApp from './ConditionalRenderingApp';
+import ConditionalApp from './ConditionalApp';
 import DebounceApp from './DebounceApp';
 import ErrorApp from './ErrorApp';
 import ErrorBoundary from './ErrorBoundary';
@@ -17,7 +17,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        {/* <ConditionalRendererApp/> */}
+        <ConditionalApp/>
       </div>
     );
   }

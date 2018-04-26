@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Ul from './components/Ul';
-import Li from './components/Li';
+import Li from 'ConditionalApp/components/Li';
+import Ul from 'ConditionalApp/components/Ul';
 
 const List = (props) => {
-  const {
+  const { 
     data
   } = props;
 
@@ -17,8 +17,12 @@ const List = (props) => {
   );
 };
 
-// List.propTypes = {
-//   data: PropTypes.array.isRequired
-// };
+List.prototype = {
+  data: PropTypes.array
+};
+
+List.defaultProps = {
+  data: []
+};
 
 export default List;

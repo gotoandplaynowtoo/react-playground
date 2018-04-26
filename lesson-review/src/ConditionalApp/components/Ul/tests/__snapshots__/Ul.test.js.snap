@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`matches to snapshot 1`] = `
 <ul
   className="sc-bdVaJa DDnfd"
 />

@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
-import ConditionalRenderingApp from './index';
+import Li from 'ConditionalApp/components/Li';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<ConditionalRenderingApp/>, div);
+  ReactDOM.render(<Li/>, div);
   ReactDOM.unmountComponentAtNode(div);
 });
 
-it('renders correctly', () => {
-  const tree = renderer.create(<ConditionalRenderingApp/>).toJSON();
+it('renders valid snapshot', () => {
+  const tree = renderer.create(<Li/>).toJSON();
   expect(tree).toMatchSnapshot();
 });

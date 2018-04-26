@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches to snapshot 1`] = `
+<ul
+  className="sc-bwzfXH eHurHK"
+>
+  <li
+    className="sc-bdVaJa gRrJQh"
+  >
+    Javascript
+  </li>
+  <li
+    className="sc-bdVaJa gRrJQh"
+  >
+    React
+  </li>
+</ul>
+`;
