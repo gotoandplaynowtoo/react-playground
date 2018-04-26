@@ -1,9 +1,18 @@
 import React from 'react';
+import List from './components/List';
+
+const data = [
+  {objectID: 0, title: 'Javascript'},
+  {objectID: 1, title: 'Redux'},
+  {objectID: 2, title: 'React'},
+];
 
 class ConditionalRenderingApp extends React.Component {
   render = () => {
     return (
-      <div>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam quibusdam beatae eveniet asperiores numquam. Dolorem deleniti, laborum laboriosam facere asperiores cupiditate officiis iure, omnis quas modi quis! Repudiandae, et ullam.</div>
+      <div>
+        <List data={data}/>
+      </div>
     );
   };
 }
