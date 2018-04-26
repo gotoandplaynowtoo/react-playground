@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam quibusdam beatae eveniet asperiores numquam. Dolorem deleniti, laborum laboriosam facere asperiores cupiditate officiis iure, omnis quas modi quis! Repudiandae, et ullam.
+</div>
+`;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 const BASE_URL = 'http://hn.algolia.com/api/v1';
 const PATH_SEARCH = '/search';
@@ -12,8 +13,8 @@ class FetchApp extends Component {
 
   fetchData = (query = 'javascript') => {
     const queryString = `${BASE_URL}${PATH_SEARCH}?${PARAM_QUERY}${query}`;
-    return fetch(queryString)
-      .then(result => result.json());
+    return axios(queryString)
+      .then(result => result.data);
   };
 
   render = () => {
