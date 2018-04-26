@@ -7,9 +7,30 @@ const PATH_SEARCH = '/search';
 const PARAM_QUERY = 'query=';
 const DEFAULT_QUERY = 'javascript';
 
+const withLoadingIndicator = (Component) => {
+  const EnhancedComponent = ({isLoading, ...props}) => {
+    if(!isLoading) return <Component {...props}/>
+    return <div><p style={{textAlign: 'center'}}>Loading...</p></div>;
+  };
+  return EnhancedComponent;
+};
+
+const withErrorIndicator = (Component) => {
+  const EnhancedComponent = ({isError, ...props}) => {
+    if(!isError) return <Component {...props}/>;
+    return <div><p style={{textAlign: 'center'}}>Error loading data.</p></div>
+  };
+  return EnhancedComponent;
+};
+
+const ListWithLoadingIndicator = withLoadingIndicator(List);
+const ListWithLoadingAndErrorIndicator = withErrorIndicator(ListWithLoadingIndicator)
+
 class ConditionalApp extends React.Component {
   state = {
-    data: []
+    data: [],
+    isLoading: false,
+    isError: false
   };
 
   fetchData = async (query = DEFAULT_QUERY) => {
@@ -22,20 +43,41 @@ class ConditionalApp extends React.Component {
   };
 
   componentDidMount = () => {
+    this.setState({
+      isLoading: true
+    });
+
     this.fetchData()
-      .then(data => console.log(data));
+      .then(data => {
+        this.setState({
+          data: data.hits,
+          isLoading: false
+        });
+      })
+      .catch(e => {
+        this.setState({
+          isError: true
+        });
+        console.log(e);
+      });
   };
 
   render = () => {
     const {
-      data
+      data,
+      isLoading,
+      isError
     } = this.state;
 
     return (
-      <List data={data}/>
+      <ListWithLoadingAndErrorIndicator 
+        isLoading={isLoading}
+        isError={isError}
+        data={data}
+      />
     );
   };
 
 }
 
-export default ConditionalApp
+export default ConditionalApp;
