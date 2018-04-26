@@ -10,6 +10,7 @@ import FetchApp2 from './FetchApp2';
 import FormApp from './FormApp';
 import FormApp2 from './FormApp2';
 import ListApp from './ListApp';
+import PaginatedApp from './PaginatedApp';
 import StateApp from './StateApp';
 import UnidirectionalApp from './UnidirectionalApp';
 
@@ -17,7 +18,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <ConditionalApp/>
+        <PaginatedApp/>
       </div>
     );
   }

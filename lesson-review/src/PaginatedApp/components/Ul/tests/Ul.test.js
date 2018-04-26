@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
-import App from './App';
+import Ul from 'PaginatedApp/components/Ul';
 
-it('renders without crashing', () => {
+it('render without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+  ReactDOM.render(<Ul/>, div);
   ReactDOM.unmountComponentAtNode(div);
 });
 
 it('matches to snapshot', () => {
-  const tree = renderer.create(<App/>).toJSON();
+  const tree = renderer.create(<Ul/>).toJSON();
   expect(tree).toMatchSnapshot();
 });

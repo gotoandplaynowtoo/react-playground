@@ -2,15 +2,15 @@
 
 exports[`matches to snapshot 1`] = `
 <ul
-  className="sc-bwzfXH eHurHK"
+  className="sc-bwzfXH iIEtPj"
 >
   <li
-    className="sc-bdVaJa gRrJQh"
+    className="sc-bdVaJa cBfTjH"
   >
     Javascript
   </li>
   <li
-    className="sc-bdVaJa gRrJQh"
+    className="sc-bdVaJa cBfTjH"
   >
     React
   </li>

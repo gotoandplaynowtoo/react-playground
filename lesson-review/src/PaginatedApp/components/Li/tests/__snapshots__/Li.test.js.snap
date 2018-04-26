@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`matches to snapshot 1`] = `
-<ul
-  className="sc-bdVaJa gcUAJg"
+<li
+  className="sc-bdVaJa gRrJQh"
 />
 `;
